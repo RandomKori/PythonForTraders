@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="D:\PythonForTraders\GeneticAlgoGenerate\GeneticAlgoGenerate\HData\" />
+    <Folder Include="HData\" />
     <Folder Include="Tester\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
