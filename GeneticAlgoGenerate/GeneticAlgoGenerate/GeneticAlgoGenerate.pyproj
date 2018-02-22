@@ -28,6 +28,9 @@
     <Compile Include="TestData.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Tester\Tester.py">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="D:\PythonForTraders\GeneticAlgoGenerate\GeneticAlgoGenerate\HData\" />
