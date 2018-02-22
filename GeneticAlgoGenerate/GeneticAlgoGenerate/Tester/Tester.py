@@ -17,6 +17,9 @@ class Tester:
         last=len(self.TickHistory)
         position=[]
         while i<last:
+            if self.TickHistory[i,1]==self.TickHistory[i-1,1] and i!=self.N-1:
+                i=i+1
+                continue
             lot,trade=self.System(self.TickHistory[i-self.N-1:i])
             if len(pozition)==0:
                 if trade==1:
