@@ -38,3 +38,14 @@ class Tester:
                         position=[]
                     if position[2]==1:
                         position=[self.TickHistory[i,0],position[1]+t[1],1,(position[3]*position[1]+t[3]*t[1])/(position[1]+t[1])]
+                    if position[2]==-1 and t[1]<position[1]:
+                        position[1]=position[1]-t[1]
+                    if position[2]==-1 and t[1]>position[1]:
+                        position=[self.TickHistory[i,0],t[1]-position[1],-1,self.TickHistory[i,1]]
+                if trade==-1:
+                    t=[self.TickHistory[i,0],lot,trade,self.TickHistoty[i,1]]
+                    self.TradeHistory.append(t)
+                    if position[1]==t[1] and position[2]==1:
+                        position=[]
+                    if position[2]==-1:
+                        position=[self.TickHistory[i,0],position[1]+t[1],-1,(position[3]*position[1]+t[3]*t[1])/(position[1]+t[1])]
