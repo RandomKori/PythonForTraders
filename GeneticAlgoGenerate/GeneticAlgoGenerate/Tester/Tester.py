@@ -49,3 +49,8 @@ class Tester:
                         position=[]
                     if position[2]==-1:
                         position=[self.TickHistory[i,0],position[1]+t[1],-1,(position[3]*position[1]+t[3]*t[1])/(position[1]+t[1])]
+                    if position[2]==1 and t[1]<position[1]:
+                        position[1]=position[1]-t[1]
+                    if position[2]==1 and t[1]>position[1]:
+                        position=[self.TickHistoey[i,0],t[1]-position[1],1,self.TickHistory[i,2]]
+            i=i+1
