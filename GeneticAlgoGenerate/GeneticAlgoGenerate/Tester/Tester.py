@@ -27,12 +27,9 @@ class CTester:
         last=len(self.TickHistory)
         self.position=[]
         while i<last:
-            if self.TickHistory[i][1]==self.TickHistory[i-1][1] and i!=self.N-1:
-                i=i+1
-                continue
             if balance<=0:
                 break
-            self.dat=self.TickHistory[(i-self.N-1):(i+1)]
+            self.dat=self.TickHistory[(i-(self.N-1)):(i+1)]
             lot,trade=self.System()
             if len(self.position)==0:
                 if trade==1:
@@ -48,7 +45,7 @@ class CTester:
                     t=[self.TickHistory[i][0],lot,trade,self.TickHistory[i][2]]
                     self.TradeHistory.append(t)
                     if self.position[1]==t[1] and self.position[2]==-1:
-                        prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TivkValue
+                        prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
                         self.TradeCount=self.TradeCount+1
@@ -60,24 +57,24 @@ class CTester:
                     if self.position[2]==-1 and t[1]<self.position[1]:
                         self.position[1]=position[1]-t[1]
                         self.TradeCount=self.TradeCount+1
-                        prof=(self.position[3]-t[3])/self.Point*t[1]*self.TivkValue
+                        prof=(self.position[3]-t[3])/self.Point*t[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
                         if prof>0:
                             self.Win=self.Win+1
                     if self.position[2]==-1 and t[1]>self.position[1]:
                         self.TradeCount=self.TradeCount+1
-                        prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TivkValue
+                        prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
                         self.position=[self.TickHistory[i][0],t[1]-position[1],-1,self.TickHistory[i,1]]
                         if prof>0:
                             self.Win=self.Win+1
                 if trade==-1:
-                    t=[self.TickHistory[i][0],lot,trade,self.TickHistoty[i][1]]
+                    t=[self.TickHistory[i][0],lot,trade,self.TickHistory[i][1]]
                     self.TradeHistory.append(t)
                     if self.position[1]==t[1] and self.position[2]==1:
-                        prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TivkValue
+                        prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
                         self.TradeCount=self.TradeCount+1
@@ -87,7 +84,7 @@ class CTester:
                     if self.position[2]==-1:
                         self.position=[self.TickHistory[i][0],self.position[1]+t[1],-1,(self.position[3]*self.position[1]+t[3]*t[1])/(self.position[1]+t[1])]
                     if self.position[2]==1 and t[1]<self.position[1]:
-                        prof=(t[3]-self.position[3])/self.Point*t[1]*self.TivkValue
+                        prof=(t[3]-self.position[3])/self.Point*t[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
                         self.TradeCount=self.TradeCount+1
@@ -96,10 +93,10 @@ class CTester:
                             self.Win=self.Win+1
                     if self.position[2]==1 and t[1]>self.position[1]:
                         self.TradeCount=self.TradeCount+1
-                        prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TivkValue
+                        prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
                         self.ProfitHistory.apprnd([t[0],balance])
-                        self.position=[self.TickHistoey[i][0],t[1]-self.position[1],1,self.TickHistory[i,2]]
+                        self.position=[self.TickHistory[i][0],t[1]-self.position[1],1,self.TickHistory[i,2]]
                         if prof>0:
                             self.Win=self.Win+1
             i=i+1
