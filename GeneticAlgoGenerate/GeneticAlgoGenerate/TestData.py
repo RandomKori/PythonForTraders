@@ -25,19 +25,20 @@ def syst():
             pz=-1
     else:
         if st.position[2]==1:
-            if st.position[3]-sl*st.Point<=st.dat[len(st.dat)-1][1]:
+            if st.position[3]-sl*st.Point>=st.dat[len(st.dat)-1][1]:
                 pz=-1
-            if st.position[3]+tp*st.Point>=st.dat[len(st.dat)-1][1]:
+            if st.position[3]+tp*st.Point<=st.dat[len(st.dat)-1][1]:
                 pz=-1
         else:
-            if st.position[3]+sl*st.Point>=st.dat[len(st.dat)-1][2]:
-                pz=-1
-            if st.position[3]-tp*st.Point<=st.dat[len(st.dat)-1][2]:
-                pz=-1
+            if st.position[3]+sl*st.Point<=st.dat[len(st.dat)-1][2]:
+                pz=1
+            if st.position[3]-tp*st.Point>=st.dat[len(st.dat)-1][2]:
+                pz=1
     return 0.1,pz
 st.System=syst
 st.Test()
-plt.plot(st.ProfitHistory[:][0],st.ProfitHistory[:][1])
+
+plt.plot(st.ProfitHistory[:][1])
 plt.show()
 input("Нажмите ентер")
 

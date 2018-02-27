@@ -1,10 +1,10 @@
 
 class CTester:
     def __init__(self):
-        self.TickHistory=[[]]
-        self.TradeHistory=[[]]
-        self.ProfitHistory=[[]]
-        self.dat=[[]]
+        self.TickHistory=[]
+        self.TradeHistory=[]
+        self.ProfitHistory=[]
+        self.dat=[]
         self.position=[]
         self.System=None # Функция реализуящая систему вида lot,trade=f(ticks) где tick список тиков размером N, trade 0 - нет сделки 1 - покупка -1 - продажа
         self.N=20 # Количество тиков передающихся в функцию реализующую систему
@@ -17,8 +17,8 @@ class CTester:
         self.Win=0
 
     def Test(self):
-        self.TradeHistory=[[]]
-        self.ProfitHistory=[[]]
+        self.TradeHistory=[]
+        self.ProfitHistory=[]
         self.position=[]
         self. TradeCount=0
         self.Win=0
