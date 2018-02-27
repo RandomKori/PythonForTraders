@@ -47,11 +47,12 @@ class CTester:
                     if self.position[1]==t[1] and self.position[2]==-1:
                         prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         self.TradeCount=self.TradeCount+1
                         if prof>0:
                             self.Win=self.Win+1
                         self.position=[]
+                        continue
                     if self.position[2]==1:
                         self.position=[self.TickHistory[i][0],self.position[1]+t[1],1,(self.position[3]*self.position[1]+t[3]*t[1])/(self.position[1]+t[1])]
                     if self.position[2]==-1 and t[1]<self.position[1]:
@@ -59,14 +60,14 @@ class CTester:
                         self.TradeCount=self.TradeCount+1
                         prof=(self.position[3]-t[3])/self.Point*t[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         if prof>0:
                             self.Win=self.Win+1
                     if self.position[2]==-1 and t[1]>self.position[1]:
                         self.TradeCount=self.TradeCount+1
                         prof=(self.position[3]-t[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         self.position=[self.TickHistory[i][0],t[1]-position[1],-1,self.TickHistory[i,1]]
                         if prof>0:
                             self.Win=self.Win+1
@@ -76,17 +77,18 @@ class CTester:
                     if self.position[1]==t[1] and self.position[2]==1:
                         prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         self.TradeCount=self.TradeCount+1
                         if prof>0:
                             self.Win=self.Win+1
                         self.position=[]
+                        continue
                     if self.position[2]==-1:
                         self.position=[self.TickHistory[i][0],self.position[1]+t[1],-1,(self.position[3]*self.position[1]+t[3]*t[1])/(self.position[1]+t[1])]
                     if self.position[2]==1 and t[1]<self.position[1]:
                         prof=(t[3]-self.position[3])/self.Point*t[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         self.TradeCount=self.TradeCount+1
                         self.position[1]=self.position[1]-t[1]
                         if prof>0:
@@ -95,7 +97,7 @@ class CTester:
                         self.TradeCount=self.TradeCount+1
                         prof=(t[3]-self.position[3])/self.Point*self.position[1]*self.TickValue
                         balance=balance+prof
-                        self.ProfitHistory.apprnd([t[0],balance])
+                        self.ProfitHistory.append([t[0],balance])
                         self.position=[self.TickHistory[i][0],t[1]-self.position[1],1,self.TickHistory[i,2]]
                         if prof>0:
                             self.Win=self.Win+1

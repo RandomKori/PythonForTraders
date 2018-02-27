@@ -37,7 +37,7 @@ def syst():
     return 0.1,pz
 st.System=syst
 st.Test()
-plt.plot(st.ProfitHistory[0],st.ProfitHistory[1])
+plt.plot(st.ProfitHistory[:][0],st.ProfitHistory[:][1])
 plt.show()
 input("Нажмите ентер")
 
