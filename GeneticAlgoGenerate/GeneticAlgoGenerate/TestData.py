@@ -24,15 +24,15 @@ def syst():
         else:
             pz=-1
     else:
-        if st.posirion[2]==1:
-            if st.position[3]-sl*st.Point<=dat[len(dat)-1,1]:
+        if st.position[2]==1:
+            if st.position[3]-sl*st.Point<=st.dat[len(st.dat)-1,1]:
                 pz=-1
-            if st.position[3]+tp*st.Point>=dat[len(dat)-1,1]:
+            if st.position[3]+tp*st.Point>=st.dat[len(st.dat)-1,1]:
                 pz=-1
         else:
-            if st.position[3]+sl*st.Point>=dat[len(dat)-1,2]:
+            if st.position[3]+sl*st.Point>=st.dat[len(st.dat)-1,2]:
                 pz=-1
-            if st.position[3]-tp*st.Point<=dat[len(dat)-1,2]:
+            if st.position[3]-tp*st.Point<=st.dat[len(st.dat)-1,2]:
                 pz=-1
     return 0.1,pz
 st.System=syst
