@@ -8,12 +8,13 @@ class CTester:
         self.position=[]
         self.System=None # Функция реализуящая систему вида lot,trade=f(ticks) где tick список тиков размером N, trade 0 - нет сделки 1 - покупка -1 - продажа
         self.N=20 # Количество тиков передающихся в функцию реализующую систему
-        self.Deposit=1000
+        self.Deposit=1000.0
         self.TickValue=1 # Цена тика на 1 лот
         self.Point=0.00001
         self.Profit=0
+        self.Balance=self.Deposit
         self.MaxDropdawn=0
-        self. TradeCount=0
+        self.TradeCount=0
         self.Win=0
 
     def Test(self):
@@ -103,3 +104,4 @@ class CTester:
                             self.Win=self.Win+1
             i=i+1
         self.Profit=balance-self.Deposit
+        self.Balance=balance
