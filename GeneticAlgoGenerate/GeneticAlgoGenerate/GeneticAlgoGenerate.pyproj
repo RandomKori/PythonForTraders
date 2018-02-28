@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b832cf14-2ee3-4089-9304-eea30bb85739</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>TestData.py</StartupFile>
+    <StartupFile>GeneticAlgoGenerate.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
