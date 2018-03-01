@@ -18,13 +18,19 @@ set.addPrimitive(operator.add,[float,float],float,name='add')
 set.addPrimitive(operator.sub,[float,float],float,name='sub')
 set.addPrimitive(operator.mul,[float,float],float,name='mul')
 def protectedDiv(left, right):
+    if right==0.0:
+        return 0.0
     return left / right
 set.addPrimitive(protectedDiv,[float,float],float,name='div')
-set.addPrimitive(operator.pow,[float,float],float,name='pow')
+#set.addPrimitive(operator.pow,[float,float],float,name='pow')
 set.addPrimitive(math.cos,[float],float,name='cos')
 set.addPrimitive(math.sin,[float],float,name='sin')
 set.addPrimitive(math.tan,[float],float,name='tan')
-set.addPrimitive(math.log10,[float],float,name='log10')
+def olog10(a):
+    if a<=0.0:
+        return 0.0
+    return math.log10(a)
+set.addPrimitive(olog10,[float],float,name='log10')
 def if_then_else(input, output1, output2):
     rz=output2
     if input:
@@ -34,14 +40,21 @@ set.addPrimitive(if_then_else, [bool, float, float], float,name='if_then_else')
 set.addPrimitive(operator.eq,[float,float],bool,name='равно')
 set.addPrimitive(operator.gt,[float,float],bool,name='больше')
 set.addPrimitive(operator.lt,[float,float],bool,name='меньше')
-set.addPrimitive(operator.and_,[bool,bool],bool,name='and')
-set.addPrimitive(operator.or_,[bool,bool],bool,name='or')
-set.addPrimitive(operator.not_,[bool],bool,name='not')
+def oand(a1,a2):
+    return a1 and a2
+def oor(a1,a2):
+    return a1 or a2
+def onot(a1):
+    return not a1
+set.addPrimitive(oand,[bool,bool],bool,name='oand')
+set.addPrimitive(oor,[bool,bool],bool,name='oor')
+set.addPrimitive(onot,[bool],bool,name='onot')
 def avr(a1,a2):
     return (a1+a2)/2
 set.addPrimitive(avr,[float,float],float,name='avr')
-set.addEphemeralConstant('const',lambda: random.uniform(-100, 100),float)
-set.addTerminal(1, bool)
+set.addEphemeralConstant('const',lambda: random.normalvariate(0.0, 100.0),float)
+set.addTerminal(True, bool)
+set.addTerminal(False, bool)
 
 set.renameArguments(ARG0="bid1")
 set.renameArguments(ARG1="ask1")
@@ -68,19 +81,20 @@ creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
-toolbox.register("expr", gp.genHalfAndHalf, pset=set, min_=1, max_=3)
+toolbox.register("expr", gp.genHalfAndHalf, pset=set, min_=1, max_=16)
 toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.expr)
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("compile", gp.compile, pset=set)
 
 sl=50
 tp=70
-indiv=None
+func=None
 def syst():
     global st
     pz=0
     if len(st.position)==0:
-        func = toolbox.compile(expr=indiv)
+        
+        p=0.0
         p=func(st.dat[0][1],st.dat[0][2],st.dat[1][1],st.dat[1][2],st.dat[2][1],st.dat[2][2],st.dat[3][1],st.dat[3][2],st.dat[4][1],st.dat[4][2],st.dat[5][1],st.dat[5][2],st.dat[6][1],st.dat[6][2],st.dat[7][1],st.dat[7][2],st.dat[8][1],st.dat[8][2],st.dat[9][1],st.dat[9][2])
         if p>0.9:
             pz=1
@@ -102,8 +116,8 @@ def syst():
 st.System=syst
 
 def evalSymbReg(individual):
-    global indiv
-    indiv=individual
+    global func
+    func = toolbox.compile(expr=individual)
     st.Test()
     if st.TradeCount==0:
         return 0.0,
@@ -113,7 +127,7 @@ def evalSymbReg(individual):
 toolbox.register("evaluate", evalSymbReg)
 toolbox.register("select", tools.selTournament, tournsize=3)
 toolbox.register("mate", gp.cxOnePoint)
-toolbox.register("expr_mut", gp.genFull, min_=0, max_=3)
+toolbox.register("expr_mut", gp.genFull, min_=0, max_=16)
 toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=set)
 
 toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
