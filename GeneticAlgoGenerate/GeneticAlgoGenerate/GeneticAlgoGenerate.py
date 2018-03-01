@@ -21,8 +21,13 @@ def protectedDiv(left, right):
     if right==0.0:
         return 0.0
     return left / right
+def osqrt(a):
+    if a<=0.0:
+        return 0.0
+    return math.sqrt(a)
 set.addPrimitive(protectedDiv,[float,float],float,name='div')
-#set.addPrimitive(operator.pow,[float,float],float,name='pow')
+set.addPrimitive(operator.pow,[float,int],float,name='pow')
+set.addPrimitive(osqrt,[float],float,name='sqrt')
 set.addPrimitive(math.cos,[float],float,name='cos')
 set.addPrimitive(math.sin,[float],float,name='sin')
 set.addPrimitive(math.tan,[float],float,name='tan')
@@ -55,6 +60,10 @@ set.addPrimitive(avr,[float,float],float,name='avr')
 set.addEphemeralConstant('const',lambda: random.normalvariate(0.0, 100.0),float)
 set.addTerminal(True, bool)
 set.addTerminal(False, bool)
+set.addTerminal(2, int)
+set.addTerminal(3, int)
+set.addTerminal(4, int)
+set.addTerminal(5, int)
 
 set.renameArguments(ARG0="bid1")
 set.renameArguments(ARG1="ask1")
@@ -133,12 +142,12 @@ toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=set)
 toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 
-pop = toolbox.population(n=300)
+pop = toolbox.population(n=10)
 hof = tools.HallOfFame(1)
 stats_fit = tools.Statistics(lambda ind: ind.fitness.values)
 stats_size = tools.Statistics(len)
 mstats = tools.MultiStatistics(fitness=stats_fit, size=stats_size)
 
-pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 40, stats=mstats, halloffame=hof, verbose=True)
-
+pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 5, stats=mstats, halloffame=hof, verbose=True)
+print(hof)
 input("Нажмите ввод")
