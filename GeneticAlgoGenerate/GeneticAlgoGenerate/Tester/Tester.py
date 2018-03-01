@@ -53,6 +53,7 @@ class CTester:
                         if prof>0:
                             self.Win=self.Win+1
                         self.position=[]
+                        i=i+1
                         continue
                     if self.position[2]==1:
                         self.position=[self.TickHistory[i][0],self.position[1]+t[1],1,(self.position[3]*self.position[1]+t[3]*t[1])/(self.position[1]+t[1])]
@@ -83,6 +84,7 @@ class CTester:
                         if prof>0:
                             self.Win=self.Win+1
                         self.position=[]
+                        i=i+1
                         continue
                     if self.position[2]==-1:
                         self.position=[self.TickHistory[i][0],self.position[1]+t[1],-1,(self.position[3]*self.position[1]+t[3]*t[1])/(self.position[1]+t[1])]

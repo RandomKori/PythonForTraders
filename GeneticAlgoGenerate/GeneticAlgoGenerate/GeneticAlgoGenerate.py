@@ -5,7 +5,7 @@ from deap import base, creator, gp, tools, algorithms
 import operator
 import math
 import random
-import numpy
+import graphviz as pgv
 
 print("Загрузка данных")
 f=dt.ReadTickBidAsk('./History/EURUSD.m_Ticks.csv')
@@ -86,7 +86,7 @@ set.renameArguments(ARG17="ask9")
 set.renameArguments(ARG18="bid10")
 set.renameArguments(ARG19="ask10")
 
-creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+creator.create("FitnessMax", base.Fitness, weights=(1.0,1.0))
 creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
@@ -129,9 +129,9 @@ def evalSymbReg(individual):
     func = toolbox.compile(expr=individual)
     st.Test()
     if st.TradeCount==0:
-        return 0.0,
-    rz=(st.Profit*(st.Win/st.TradeCount))
-    return rz,
+        return 0.0,0.0
+    rz=st.Win/st.TradeCount
+    return rz,st.Profit
 
 toolbox.register("evaluate", evalSymbReg)
 toolbox.register("select", tools.selTournament, tournsize=3)
@@ -149,5 +149,16 @@ stats_size = tools.Statistics(len)
 mstats = tools.MultiStatistics(fitness=stats_fit, size=stats_size)
 
 pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 5, stats=mstats, halloffame=hof, verbose=True)
-print(hof)
+
+nodes, edges, labels = gp.graph(hof)
+g = pgv.AGraph()
+g.add_nodes_from(nodes)
+g.add_edges_from(edges)
+g.layout(prog="dot")
+
+for i in nodes:
+    n = g.get_node(i)
+    n.attr["label"] = labels[i]
+
+g.draw("./Rez/tree.pdf")
 input("Нажмите ввод")
