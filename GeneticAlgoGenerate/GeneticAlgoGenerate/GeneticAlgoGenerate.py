@@ -5,7 +5,8 @@ from deap import base, creator, gp, tools, algorithms
 import operator
 import math
 import random
-import graphviz as pgv
+import numpy
+
 
 print("Загрузка данных")
 f=dt.ReadTickBidAsk('./History/EURUSD.m_Ticks.csv')
@@ -86,7 +87,7 @@ set.renameArguments(ARG17="ask9")
 set.renameArguments(ARG18="bid10")
 set.renameArguments(ARG19="ask10")
 
-creator.create("FitnessMax", base.Fitness, weights=(1.0,1.0))
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
 creator.create("Individual", gp.PrimitiveTree, fitness=creator.FitnessMax)
 
 toolbox = base.Toolbox()
@@ -105,9 +106,9 @@ def syst():
         
         p=0.0
         p=func(st.dat[0][1],st.dat[0][2],st.dat[1][1],st.dat[1][2],st.dat[2][1],st.dat[2][2],st.dat[3][1],st.dat[3][2],st.dat[4][1],st.dat[4][2],st.dat[5][1],st.dat[5][2],st.dat[6][1],st.dat[6][2],st.dat[7][1],st.dat[7][2],st.dat[8][1],st.dat[8][2],st.dat[9][1],st.dat[9][2])
-        if p>0.9:
+        if p>0.5:
             pz=1
-        if p<(-0.9):
+        if p<(-0.5):
             pz=-1
     else:
         if st.position[2]==1:
@@ -129,9 +130,8 @@ def evalSymbReg(individual):
     func = toolbox.compile(expr=individual)
     st.Test()
     if st.TradeCount==0:
-        return 0.0,0.0
-    rz=st.Win/st.TradeCount
-    return rz,st.Profit
+        return -1000.0,
+    return st.Profit,
 
 toolbox.register("evaluate", evalSymbReg)
 toolbox.register("select", tools.selTournament, tournsize=3)
@@ -142,23 +142,23 @@ toolbox.register("mutate", gp.mutUniform, expr=toolbox.expr_mut, pset=set)
 toolbox.decorate("mate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 toolbox.decorate("mutate", gp.staticLimit(key=operator.attrgetter("height"), max_value=17))
 
-pop = toolbox.population(n=10)
+pop = toolbox.population(n=30)
 hof = tools.HallOfFame(1)
 stats_fit = tools.Statistics(lambda ind: ind.fitness.values)
 stats_size = tools.Statistics(len)
 mstats = tools.MultiStatistics(fitness=stats_fit, size=stats_size)
-
-pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 5, stats=mstats, halloffame=hof, verbose=True)
-
-nodes, edges, labels = gp.graph(hof)
-g = pgv.AGraph()
-g.add_nodes_from(nodes)
-g.add_edges_from(edges)
-g.layout(prog="dot")
-
-for i in nodes:
-    n = g.get_node(i)
-    n.attr["label"] = labels[i]
-
-g.draw("./Rez/tree.pdf")
+mstats.register("avg", numpy.mean)
+mstats.register("std", numpy.std)
+mstats.register("min", numpy.min)
+mstats.register("max", numpy.max)
+pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 30, stats=mstats, halloffame=hof, verbose=True)
+record = mstats.compile(pop)
+print(record)
+expr = toolbox.individual()
+tree = gp.PrimitiveTree(expr)
+rez=str(tree)
+print(rez)
+fl=open('./Rez/tree.txt','w')
+fl.write(rez)
+fl.close()
 input("Нажмите ввод")
