@@ -9,10 +9,11 @@ import numpy
 
 
 print("Загрузка данных")
-f=dt.ReadTickBidAsk('./History/EURUSD.m_Ticks.csv')
+f=dt.ReadTickBidAsk('./History/BR-4.18_Ticks.csv')
 st=ts.CTester()
 st.TickHistory=f[f.columns[:]].values.tolist()
 st.N=10
+st.Point=0.01
 print("Обучение ГА")
 set=gp.PrimitiveSetTyped('main',[float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float,float],float)
 set.addPrimitive(operator.add,[float,float],float,name='add')
@@ -96,8 +97,8 @@ toolbox.register("individual", tools.initIterate, creator.Individual, toolbox.ex
 toolbox.register("population", tools.initRepeat, list, toolbox.individual)
 toolbox.register("compile", gp.compile, pset=set)
 
-sl=50
-tp=70
+sl=7
+tp=7
 func=None
 def syst():
     global st
@@ -121,7 +122,7 @@ def syst():
                 pz=1
             if st.position[3]-tp*st.Point>=st.dat[len(st.dat)-1][2]:
                 pz=1
-    return 0.1,pz
+    return 1,pz
 
 st.System=syst
 
