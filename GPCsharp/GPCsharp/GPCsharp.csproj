@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +36,33 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Accord, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.3.8.0\lib\net462\Accord.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Genetic, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Genetic.3.8.0\lib\net462\Accord.Genetic.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Math.3.8.0\lib\net462\Accord.Math.dll</HintPath>
+    </Reference>
+    <Reference Include="Accord.Math.Core, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Accord.Math.3.8.0\lib\net462\Accord.Math.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantConnect.Algorithm, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Algorithm.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantConnect.Common, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantConnect.Configuration, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantConnect.Indicators, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Indicators.dll</HintPath>
+    </Reference>
+    <Reference Include="QuantConnect.Logging, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,10 +77,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="..\packages\Accord.3.8.0\build\Accord.targets" Condition="Exists('..\packages\Accord.3.8.0\build\Accord.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Accord.3.8.0\build\Accord.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Accord.3.8.0\build\Accord.targets'))" />
+  </Target>
 </Project>
