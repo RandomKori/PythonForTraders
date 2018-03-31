@@ -48,21 +48,6 @@
     <Reference Include="Accord.Math.Core, Version=3.8.0.0, Culture=neutral, PublicKeyToken=fa1a88e29555ccf7, processorArchitecture=MSIL">
       <HintPath>..\packages\Accord.Math.3.8.0\lib\net462\Accord.Math.Core.dll</HintPath>
     </Reference>
-    <Reference Include="QuantConnect.Algorithm, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Algorithm.dll</HintPath>
-    </Reference>
-    <Reference Include="QuantConnect.Common, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="QuantConnect.Configuration, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="QuantConnect.Indicators, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Indicators.dll</HintPath>
-    </Reference>
-    <Reference Include="QuantConnect.Logging, Version=2.2.0.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\QuantConnect.Lean.2.2.0\lib\net45\QuantConnect.Logging.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
