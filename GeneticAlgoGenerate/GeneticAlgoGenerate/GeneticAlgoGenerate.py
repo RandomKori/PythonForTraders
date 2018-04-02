@@ -155,7 +155,7 @@ mstats.register("max", numpy.max)
 pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 30, stats=mstats, halloffame=hof, verbose=True)
 record = mstats.compile(pop)
 print(record)
-expr = toolbox.individual()
+expr = hof[0]
 tree = gp.PrimitiveTree(expr)
 rez=str(tree)
 print(rez)
