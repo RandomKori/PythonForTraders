@@ -117,7 +117,7 @@ def syst():
                 pz=-1
             if st.position[3]+tp*st.Point<=st.dat[len(st.dat)-1][1]:
                 pz=-1
-        if st.position[2]==-1:
+        else: 
             if st.position[3]+sl*st.Point<=st.dat[len(st.dat)-1][2]:
                 pz=1
             if st.position[3]-tp*st.Point>=st.dat[len(st.dat)-1][2]:
