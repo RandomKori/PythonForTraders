@@ -28,8 +28,6 @@ class CTester:
         last=len(self.TickHistory)
         self.position=[]
         while i<last:
-            if balance<=0:
-                break
             self.dat=self.TickHistory[(i-(self.N-1)):(i+1)]
             lot,trade=self.System()
             if len(self.position)==0:
