@@ -38,6 +38,9 @@ def olog10(a):
         return 0.0
     return math.log10(a)
 set.addPrimitive(olog10,[float],float,name='log10')
+def neg(a):
+    return 0.0-a
+set.addPrimitive(neg,[float],float,name='neg')
 def if_then_else(input, output1, output2):
     rz=output2
     if input:
