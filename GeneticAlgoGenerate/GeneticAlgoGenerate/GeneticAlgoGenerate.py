@@ -9,7 +9,7 @@ import numpy
 
 
 print("Загрузка данных")
-f=dt.ReadTickBidAsk('./History/BR Splice_Ticks.csv')
+f=dt.ReadTickBidAsk('./History/BR-5.18_Ticks.csv')
 st=ts.CTester()
 st.TickHistory=f[f.columns[:]].values.tolist()
 st.N=10
@@ -28,16 +28,16 @@ def osqrt(a):
         return 0.0
     return math.sqrt(a)
 set.addPrimitive(protectedDiv,[float,float],float,name='div')
-set.addPrimitive(operator.pow,[float,int],float,name='pow')
-set.addPrimitive(osqrt,[float],float,name='sqrt')
-set.addPrimitive(math.cos,[float],float,name='cos')
-set.addPrimitive(math.sin,[float],float,name='sin')
-set.addPrimitive(math.tan,[float],float,name='tan')
+set.addPrimitive(operator.pow,[float,int],float,name='pwr')
+set.addPrimitive(osqrt,[float],float,name='osqrt')
+set.addPrimitive(math.cos,[float],float,name='ocos')
+set.addPrimitive(math.sin,[float],float,name='osin')
+set.addPrimitive(math.tan,[float],float,name='otan')
 def olog10(a):
     if a<=0.0:
         return 0.0
     return math.log10(a)
-set.addPrimitive(olog10,[float],float,name='log10')
+set.addPrimitive(olog10,[float],float,name='olog10')
 def neg(a):
     return 0.0-a
 set.addPrimitive(neg,[float],float,name='neg')
@@ -47,9 +47,9 @@ def if_then_else(input, output1, output2):
         rz=output1
     return rz
 set.addPrimitive(if_then_else, [bool, float, float], float,name='if_then_else')
-set.addPrimitive(operator.eq,[float,float],bool,name='равно')
-set.addPrimitive(operator.gt,[float,float],bool,name='больше')
-set.addPrimitive(operator.lt,[float,float],bool,name='меньше')
+set.addPrimitive(operator.eq,[float,float],bool,name='ravno')
+set.addPrimitive(operator.gt,[float,float],bool,name='bolshe')
+set.addPrimitive(operator.lt,[float,float],bool,name='menshe')
 def oand(a1,a2):
     return a1 and a2
 def oor(a1,a2):
@@ -185,7 +185,7 @@ mstats.register("avg", numpy.mean)
 mstats.register("std", numpy.std)
 mstats.register("min", numpy.min)
 mstats.register("max", numpy.max)
-pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 40, stats=mstats, halloffame=hof, verbose=True)
+pop, log = algorithms.eaSimple(pop, toolbox, 0.5, 0.1, 60, stats=mstats, halloffame=hof, verbose=True)
 record = mstats.compile(pop)
 print(record)
 expr = hof[0]
