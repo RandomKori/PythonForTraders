@@ -9,7 +9,7 @@ import numpy
 
 
 print("Загрузка данных")
-f=dt.ReadTickBidAsk('./History/BR-5.18_Ticks.csv')
+f=dt.ReadTickBidAsk('./History/BR Splice_Ticks.csv')
 st=ts.CTester()
 st.TickHistory=f[f.columns[:]].values.tolist()
 st.N=10
